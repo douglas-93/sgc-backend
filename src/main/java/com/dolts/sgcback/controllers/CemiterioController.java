@@ -10,10 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/cemiterios")
 public class CemiterioController {
+    private final CemiterioRepository cemiterioRepository;
 
-    private CemiterioRepository cemiterioRepository;
+    public CemiterioController(CemiterioRepository cemiterioRepository) {
+        this.cemiterioRepository = cemiterioRepository;
+    }
 
     @GetMapping
     public ResponseEntity<List<CemiterioModel>> todosCemiterios() {
