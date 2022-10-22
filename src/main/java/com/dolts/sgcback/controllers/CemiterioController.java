@@ -28,7 +28,7 @@ public class CemiterioController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<Object> encontraCemiterioPorId(@PathVariable int id) {
         Optional<CemiterioModel> cemiterio = cemiterioRepository.findById(id);
-        if (!cemiterio.isPresent()) {
+        if (cemiterio.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unidade não encontrada");
         }
         return ResponseEntity.status(HttpStatus.OK).body(cemiterioRepository.findById(id));
@@ -50,8 +50,8 @@ public class CemiterioController {
                     data.setEstado(cemiterioModel.getEstado());
                     data.setResponsavel(cemiterioModel.getResponsavel());
                     CemiterioModel atualizado = cemiterioRepository.save(data);
-                    return ResponseEntity.ok().body(atualizado);
-                }).orElse(ResponseEntity.notFound().build());
+                    return ResponseEntity.status(HttpStatus.OK).body(atualizado);
+                }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @DeleteMapping("/del/{id}")
@@ -59,7 +59,7 @@ public class CemiterioController {
         return cemiterioRepository.findById(id)
                 .map(record -> {
                     cemiterioRepository.deleteById(id);
-                    return ResponseEntity.ok().build();
-                }).orElse(ResponseEntity.notFound().build());
+                    return ResponseEntity.status(HttpStatus.OK).build();
+                }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }
