@@ -58,5 +58,4 @@ public class SepulturaController {
                     return ResponseEntity.status(HttpStatus.OK).build();
                 }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-
 }
