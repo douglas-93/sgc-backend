@@ -18,6 +18,8 @@ public class PessoaModel implements Serializable {
     private String nome;
     @Column(unique = true, length = 11, nullable = false)
     private String cpf;
+    @Column(nullable = false)
+    private Date dataNascimento;
     @OneToOne
     private SepulturaModel sepultura;
     @Column
